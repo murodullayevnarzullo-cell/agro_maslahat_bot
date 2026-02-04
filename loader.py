@@ -12,16 +12,17 @@ genai.configure(api_key=config.GEMINI_API_KEY)
 
 genai.configure(api_key=config.GEMINI_API_KEY)
 
-print("--- Ruxsat etilgan modellar ro'yxati ---")
-try:
-    for m in genai.list_models():
-        if 'generateContent' in m.supported_generation_methods:
-            print(f"Mavjud model: {m.name}")
-except Exception as e:
-    print(f"Modellarni olishda xatolik: {e}")
 
 # Eng xavfsiz va aniq nom bilan chaqirish
-model = genai.GenerativeModel('models\gemini-2.5-flash')
+model = genai.GenerativeModel(
+    model_name='gemini-2.5-flash',
+    system_instruction=(
+        "Siz 'Agro Maslahat' botisiz. Sizning asosiy vazifangiz foydalanuvchilarga "
+        "qishloq xo'jaligi, o'simliklar parvarishi va huquqiy masalalarda yordam berishdir. "
+        "Barcha savollarga FAQAT O'ZBEK TILIDA javob bering. Foydalanuvchi boshqa tilda yozsa ham, "
+        "javobni o'zbek tiliga tarjima qilib qaytaring. Muloyim va professional bo'ling."
+    )
+)
 
 chat_sessions = {}
 

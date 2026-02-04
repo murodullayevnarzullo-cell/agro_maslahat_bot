@@ -27,7 +27,7 @@ async def bot_echo(message: types.Message):
         response = model.generate_content(message.text)
         
         if response.text:
-            await message.answer(response.text)
+            await message.answer(response.text, parse_mode=types.ParseMode.MARKDOWN)
         else:
             await message.answer("Kechirasiz, javob topilmadi.")
             
@@ -53,7 +53,7 @@ async def bot_image(message: types.Message):
     response = model.generate_content([prompt, img_data])
     
     # Tarixga qo'shish
-    chat.history.append({"role": "user", "parts": [prompt]})
+    chat.history.append({"role": "user", "parts": [prompt]})    
     chat.history.append({"role": "model", "parts": [response.text]})
     
-    await message.reply(response.text)
+    await message.reply(response.text, parse_mode=types.ParseMode.MARKDOWN)
